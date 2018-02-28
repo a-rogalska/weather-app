@@ -1,0 +1,8 @@
+.weather-container-search
+  %h1.text-center Weather Service
+  .text-center
+    = form_for :weather, url: "weather/get_weather" do |f|
+      = f.select :city, @cities, {}, { class: 'cities-select' }
+      = f.submit "Search", class: 'submit-btn'
+    %span.error
+      = flash.alert

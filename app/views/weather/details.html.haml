@@ -1,0 +1,46 @@
+.weather-container
+  %h1.text-center
+    Weather in
+    = @weather[:name]
+
+  .weather-details
+    %h2 Current weather
+    .description
+      = @weather[:weather][0][:description]
+    .current-temperature
+      %span.temperature
+        = @weather[:main][:temp].round
+      &#176;
+    %span
+      Today:
+      = @weather[:main][:temp_min]
+      &#47;
+      = @weather[:main][:temp_max]
+      &#176;C
+    %br
+    %span
+      Sunrise:
+      = Time.at(@weather[:sys][:sunrise]).strftime("%H:%M")
+    %br
+    %span
+      Sunset:
+      = Time.at(@weather[:sys][:sunset]).strftime("%H:%M")
+
+  .forecast-details
+    %h2.text-center Forecast
+    %table
+      %thead
+        %tr
+          %th Day
+          %th Time
+          %th Temperature
+      %tbody
+        - @forecast[:list].each do |day|
+          %tr
+            %td
+              = Time.at(day[:dt]).strftime("%d-%m")
+            %td
+              = Time.at(day[:dt]).strftime("%H:%M")
+            %td
+              %span.temperature
+                = day[:main][:temp].round
